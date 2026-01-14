@@ -48,11 +48,8 @@ Thumbs.db
 
 # Reports
 /reports/
-/allure-results/
-reports/allure-results/
-reports/allure-report/
-reports/coverage-html/
-*.html
+allure-results/
+# Note: index.html is tracked (pages dashboard), other *.html files in reports/ are ignored
 
 # Misc
 .cache/

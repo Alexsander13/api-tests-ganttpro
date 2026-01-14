@@ -226,6 +226,16 @@ To publish Allure reports to GitHub Pages:
 
 ## Test Reports
 
+### 📊 View Reports Online (GitHub Pages)
+
+After tests complete, reports are automatically published to GitHub Pages:
+
+**🔗 [Open Live Test Reports](https://Alexsander13.github.io/api-tests-ganttpro/)**
+
+No downloads needed! Includes:
+- 📈 **Allure Report** - Interactive with graphs and timelines
+- 📋 **HTML Report** - Detailed summary with statistics
+
 ### Allure Report (Recommended)
 
 ```bash
