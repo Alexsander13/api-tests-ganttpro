@@ -14,6 +14,7 @@ jobs:
     permissions:
       contents: read
       checks: write
+      pull-requests: read
     
     steps:
     - uses: actions/checkout@v4
@@ -60,3 +61,4 @@ jobs:
       with:
         files: reports/junit.xml
         check_name: Test Results
+        comment_mode: off
