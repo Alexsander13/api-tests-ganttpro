@@ -1,0 +1,554 @@
+{
+  "source": {
+    "type": "web_page",
+    "url": "https://developer.ganttpro.com/?http#ganttpro-api-time-logs",
+    "notes": "Parsed from visible page text. Webhooks section excluded."
+  },
+  "api": {
+    "baseUrl": "https://api.ganttpro.com/v1.0",
+    "auth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-Key"
+    },
+    "defaultHeaders": {
+      "Accept": "application/json"
+    },
+    "contentTypes": {
+      "json": "application/json",
+      "multipart": "multipart/form-data"
+    }
+  },
+  "endpoints": [
+    {
+      "method": "PUT",
+      "path": "/tasks/{taskId}",
+      "operationId": "updateTask",
+      "summary": "Update task",
+      "pathParams": {
+        "taskId": { "type": "integer", "required": true }
+      },
+      "body": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "status": { "type": "integer", "enum": [1, 2, 3, 4], "enumLabels": ["Open", "In progress", "Done", "Closed"] },
+          "startDate": { "type": "string" },
+          "endDate": { "type": "string" },
+          "duration": { "type": "integer" },
+          "priority": { "type": "integer", "enum": [1, 2, 3, 4, 5], "enumLabels": ["Lowest", "Low", "Medium", "High", "Highest"] },
+          "progress": { "type": "number", "min": 0, "max": 1 },
+          "parent": { "type": "integer" },
+          "estimation": { "type": "integer" },
+          "deadline": { "type": "string" },
+          "color": { "type": "integer", "min": 1, "max": 18 },
+          "customFields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "customFieldId": { "type": "integer" },
+                "value": { "type": "any" }
+              }
+            }
+          }
+        }
+      },
+      "notes": {
+        "dateRecalculationRules": [
+          "Only startDate => endDate auto recalculated",
+          "Only duration => endDate auto recalculated",
+          "Only endDate => duration auto recalculated",
+          "startDate+endDate (no duration) => duration auto recalculated",
+          "startDate+duration (no endDate) => endDate auto recalculated",
+          "endDate+duration (no startDate) => endDate auto recalculated",
+          "startDate+endDate+duration => endDate ignored; recalculated from duration"
+        ],
+        "projectTypeTaskExceptions": [
+          "Type",
+          "Progress",
+          "Status",
+          "Priority",
+          "Duration",
+          "Estimation",
+          "End Date",
+          "Resources"
+        ]
+      },
+      "responses": {
+        "200": { "example": { "status": "ok" } },
+        "400": {},
+        "401": {}
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks/{taskId}",
+      "operationId": "deleteTask",
+      "summary": "Delete task",
+      "pathParams": {
+        "taskId": { "type": "integer", "required": true }
+      },
+      "responses": {
+        "200": { "example": { "status": "ok" } },
+        "400": {},
+        "401": {},
+        "404": { "notes": "Task not found" }
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tasks/{taskId}/assignResource",
+      "operationId": "updateTaskResource",
+      "summary": "Update task resource",
+      "pathParams": {
+        "taskId": { "type": "integer", "required": true }
+      },
+      "body": {
+        "type": "object",
+        "required": ["resources"],
+        "properties": {
+          "resources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "resourceId": { "type": "integer" },
+                "resourceValue": { "type": "integer" }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": { "example": { "status": "ok" } },
+        "400": {},
+        "401": {}
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/{taskId}/assignResource",
+      "operationId": "assignResourcesToTask",
+      "summary": "Assign resources to task",
+      "pathParams": {
+        "taskId": { "type": "integer", "required": true }
+      },
+      "body": {
+        "type": "object",
+        "required": ["resources"],
+        "properties": {
+          "resources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "resourceId": { "type": "integer" },
+                "resourceValue": { "type": "integer" }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": { "example": { "status": "ok" } },
+        "400": {},
+        "401": {}
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks/{taskId}/assignResource",
+      "operationId": "deleteAssignFromTask",
+      "summary": "Delete assign from task",
+      "pathParams": {
+        "taskId": { "type": "integer", "required": true }
+      },
+      "queryParams": {
+        "resourceId": { "type": "array", "itemsType": "integer", "required": true }
+      },
+      "responses": {
+        "200": { "example": { "status": "ok" } },
+        "400": {},
+        "401": {}
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/resources",
+      "operationId": "getResourcesList",
+      "summary": "Get resources list",
+      "responses": {
+        "200": {
+          "exampleItemShape": {
+            "id": "integer",
+            "photo": "string",
+            "name": "string",
+            "email": "string",
+            "userId": "integer",
+            "colorId": "integer",
+            "description": "string",
+            "teamId": "integer",
+            "accountRoleId": "integer",
+            "resourceProjects": [
+              { "projectId": "integer", "projectRoleId": "integer", "cost": "integer", "type": "integer", "rights": { "view": "boolean", "edit": "boolean", "viewCost": "boolean" } }
+            ],
+            "customDays": [
+              {
+                "from": "string",
+                "to": "string",
+                "workingHours": "integer",
+                "repeat": "string",
+                "repeatFrom": "string",
+                "repeatTo": "week|month|year",
+                "title": "string",
+                "type": "string",
+                "isDayOff": "boolean"
+              }
+            ],
+            "workingHours": "integer",
+            "workingDays": "integer[]"
+          }
+        },
+        "400": {},
+        "401": {}
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/comments",
+      "operationId": "getCommentsListForTasks",
+      "summary": "Get comments list for tasks",
+      "queryParams": {
+        "taskId": { "type": "array", "itemsType": "integer", "required": true }
+      },
+      "responses": {
+        "200": {
+          "exampleItemShape": {
+            "id": "integer",
+            "projectId": "integer",
+            "taskId": "integer",
+            "userId": "integer",
+            "content": "string",
+            "comment": "string",
+            "user": { "resourceId": "integer", "firstName": "string", "lastName": "string", "photo": "string" },
+            "createdAt": "string",
+            "updatedAt": "string"
+          }
+        },
+        "400": {},
+        "401": {}
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/comments",
+      "operationId": "addCommentToTask",
+      "summary": "Add comments to task",
+      "body": {
+        "type": "object",
+        "required": ["taskId", "userId", "content"],
+        "properties": {
+          "taskId": { "type": "integer" },
+          "userId": { "type": "integer" },
+          "content": { "type": "string" }
+        }
+      },
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "PUT",
+      "path": "/comments/{commentId}",
+      "operationId": "updateComment",
+      "summary": "Update comment",
+      "pathParams": { "commentId": { "type": "integer", "required": true } },
+      "body": {
+        "type": "object",
+        "required": ["content"],
+        "properties": { "content": { "type": "string" } }
+      },
+      "responses": { "200": { "example": { "status": "ok" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "DELETE",
+      "path": "/comments/{commentId}",
+      "operationId": "deleteComment",
+      "summary": "Delete comment",
+      "pathParams": { "commentId": { "type": "integer", "required": true } },
+      "responses": { "200": { "example": { "status": "ok" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/comments/getByProjectId",
+      "operationId": "getCommentsByProjectId",
+      "summary": "Get comments list for tasks by project id",
+      "queryParams": { "projectId": { "type": "integer", "required": true } },
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/attachments",
+      "operationId": "getAttachmentsListForTasks",
+      "summary": "Get attachments list for tasks",
+      "queryParams": {
+        "taskId": { "type": "array", "itemsType": "integer", "required": true }
+      },
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "POST",
+      "path": "/attachments",
+      "operationId": "addAttachmentToTask",
+      "summary": "Add attachment to task",
+      "headers": { "Content-Type": "multipart/form-data" },
+      "body": {
+        "type": "object",
+        "required": ["taskId", "userId", "file"],
+        "properties": {
+          "taskId": { "type": "integer" },
+          "userId": { "type": "integer" },
+          "file": { "type": "string", "notes": "multipart form field" }
+        }
+      },
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "DELETE",
+      "path": "/attachments/{attachmentId}",
+      "operationId": "deleteAttachment",
+      "summary": "Delete attachment",
+      "pathParams": { "attachmentId": { "type": "integer", "required": true } },
+      "responses": { "200": { "example": { "status": "ok" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "DELETE",
+      "path": "/attachments/delete/byIds",
+      "operationId": "deleteAttachmentsByIds",
+      "summary": "Delete attachments by ids",
+      "body": {
+        "type": "object",
+        "required": ["attachmentIds"],
+        "properties": {
+          "attachmentIds": { "type": "array", "itemsType": "integer" }
+        }
+      },
+      "responses": { "200": { "example": { "status": "ok" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/attachments/getByProjectId",
+      "operationId": "getAttachmentsByProjectId",
+      "summary": "Get attachments list for tasks by project id",
+      "queryParams": { "projectId": { "type": "integer", "required": true } },
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/languages",
+      "operationId": "getLanguages",
+      "summary": "Get languages",
+      "responses": { "200": { "exampleItemShape": { "key": "string", "code": "string", "title": "string" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "POST",
+      "path": "/links",
+      "operationId": "createLink",
+      "summary": "Create new link",
+      "body": {
+        "type": "object",
+        "required": ["source", "target", "type"],
+        "properties": {
+          "source": { "type": "integer" },
+          "target": { "type": "integer" },
+          "type": { "type": "string" },
+          "lag": { "type": "integer" }
+        }
+      },
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/links/{linkId}",
+      "operationId": "getLink",
+      "summary": "Get link",
+      "pathParams": { "linkId": { "type": "integer", "required": true } },
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "PUT",
+      "path": "/links/{linkId}",
+      "operationId": "updateLink",
+      "summary": "Update link",
+      "pathParams": { "linkId": { "type": "integer", "required": true } },
+      "notes": ["If Auto-scheduling is enabled in the project, the lag parameter will be ignored."],
+      "body": {
+        "type": "object",
+        "properties": { "type": { "type": "string" }, "lag": { "type": "integer" } }
+      },
+      "responses": { "200": { "example": { "status": "ok" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "DELETE",
+      "path": "/links/{linkId}",
+      "operationId": "deleteLink",
+      "summary": "Delete link",
+      "pathParams": { "linkId": { "type": "integer", "required": true } },
+      "responses": { "200": { "example": { "status": "ok" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/roles/account",
+      "operationId": "getAccountRoles",
+      "summary": "Get account roles",
+      "notes": ["In code sample, X-API-Key header is not shown."],
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/roles/project",
+      "operationId": "getProjectRoles",
+      "summary": "Get project roles",
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/timeLogs",
+      "operationId": "getTimeLogListForTasks",
+      "summary": "Get time log list for tasks",
+      "queryParams": { "taskId": { "type": "array", "itemsType": "integer", "required": true } },
+      "responses": {
+        "200": {
+          "exampleItemShape": { "id": "integer", "taskId": "integer", "resourceId": "integer", "time": "integer", "date": "string", "comment": "string" }
+        },
+        "400": {},
+        "401": {}
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/timeLogs",
+      "operationId": "addTimeLogToTask",
+      "summary": "Add time log to task",
+      "body": {
+        "type": "object",
+        "required": ["taskId", "resourceId", "time"],
+        "properties": {
+          "taskId": { "type": "integer" },
+          "resourceId": { "type": "integer" },
+          "time": { "type": "integer" },
+          "date": { "type": "string" },
+          "comment": { "type": "string" }
+        }
+      },
+      "responses": { "200": { "example": { "status": "ok" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/timeLogs/{timeLogId}",
+      "operationId": "getTimeLog",
+      "summary": "Get time log",
+      "pathParams": { "timeLogId": { "type": "integer", "required": true } },
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "PUT",
+      "path": "/timeLogs/{timeLogId}",
+      "operationId": "updateTimeLog",
+      "summary": "Update time log",
+      "pathParams": { "timeLogId": { "type": "integer", "required": true } },
+      "body": {
+        "type": "object",
+        "properties": {
+          "resourceId": { "type": "integer" },
+          "time": { "type": "integer" },
+          "date": { "type": "string" },
+          "comment": { "type": "string" }
+        }
+      },
+      "responses": { "200": { "example": { "status": "ok" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "DELETE",
+      "path": "/timeLogs/{timeLogId}",
+      "operationId": "deleteTimeLog",
+      "summary": "Delete time log",
+      "pathParams": { "timeLogId": { "type": "integer", "required": true } },
+      "responses": { "200": { "example": { "status": "ok" } }, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/timeLogs/getByProjectId",
+      "operationId": "getTimeLogByProjectId",
+      "summary": "Get time log by projectId",
+      "queryParams": { "projectId": { "type": "integer", "required": true } },
+      "responses": { "200": {}, "400": {}, "401": {} }
+    },
+    {
+      "method": "GET",
+      "path": "/colors",
+      "operationId": "getColors",
+      "summary": "Get colors",
+      "responses": {
+        "200": {
+          "exampleItemShape": { "id": "integer", "hex": "string", "hex2": "string", "hex3": "string", "hex4": "string" }
+        },
+        "400": {},
+        "401": {}
+      }
+    }
+  ],
+  "errorCodes": [
+    { "code": 1000, "description": "You do not have access to the required item" },
+    { "code": 1001, "description": "The resource is not assigned to the project specified in the request" },
+    { "code": 1002, "description": "The project doesn't contain the parent task ID specified in the request" },
+    { "code": 1003, "description": "Team subscription has expired" },
+    { "code": 1004, "description": "Team trial has expired" },
+    { "code": 1005, "description": "Use other endpoints to change owner role" },
+    { "code": 1006, "description": "Api key is invalid or it's not exist" },
+    { "code": 1007, "description": "Handler does not exist" },
+    { "code": 2000, "description": "Can't find one of the requested field" },
+    { "code": 2001, "description": "Can not find item" },
+    { "code": 2002, "description": "Invalid array bits for roles and permissions" },
+    { "code": 3000, "description": "Field value with the type Int cannot be less than described in the method description" },
+    { "code": 3001, "description": "Field value with the type Int cannot be more than described in the method description" },
+    { "code": 3002, "description": "Field value should be one of the values described in the method description" },
+    { "code": 3003, "description": "Length of the field value with the type String cannot be less than described in the method description" },
+    { "code": 3004, "description": "Field value should be less than the max value" },
+    { "code": 3005, "description": "You missed one or a few required fields" },
+    { "code": 3007, "description": "Conflict between status and progress in the Create or Update task methods" },
+    { "code": 3008, "description": "The resource is already assigned on this task" },
+    { "code": 3009, "description": "Task isn't a project type" },
+    { "code": 3010, "description": "You cannot create tasks in the \"Total estimate\" task" },
+    { "code": 3011, "description": "Field value should be more than the min value and less than the max value. See min and max values in the method description" },
+    { "code": 3012, "description": "In the Create or Update task methods end date can't be earlier than start date" },
+    { "code": 3013, "description": "It's not possible to use only end date (without start date or duration) in the Create task method" },
+    { "code": 3014, "description": "Based on the working calendar, duration between start date and end date is 0" },
+    { "code": 3015, "description": "Unexpected field" },
+    { "code": 3016, "description": "One or more resources are not assigned on the task" },
+    { "code": 3017, "description": "You can't change the estimation, duration, or endDate for a milestone" },
+    { "code": 3018, "description": "Parent cannot be the current task" },
+    { "code": 3019, "description": "Milestone can't has subtasks" },
+    { "code": 3020, "description": "Header is required for updating field" },
+    { "code": 3022, "description": "The nesting level is limited to 12 parent tasks" },
+    { "code": 3023, "description": "Template isn't exist" },
+    { "code": 3024, "description": "Email is already in a team" },
+    { "code": 3025, "description": "You should use estimationMode = 1 for using apply calendar resource" },
+    { "code": 3026, "description": "Resource with email is already in team" },
+    { "code": 3027, "description": "Header is required" },
+    { "code": 4000, "description": "ID is invalid" },
+    { "code": 4001, "description": "Field is invalid" },
+    { "code": 4002, "description": "Invalid type of field" },
+    { "code": 4003, "description": "Date format is invalid" },
+    { "code": 4004, "description": "Header is invalid" },
+    { "code": 4005, "description": "Storage is full. You have limit" },
+    { "code": 5001, "description": "The source task id and the target task id are the same. Choose different tasks to create a link" },
+    { "code": 5002, "description": "You can create only one link between two tasks" },
+    { "code": 5003, "description": "The source task id and the target task id are from different projects. Choose tasks from the same project" },
+    { "code": 5004, "description": "The link is circular" },
+    { "code": 6002, "description": "Not allowed use `To` field with `Repeat` field" },
+    { "code": 6003, "description": "Invalid intersect for days or hours" },
+    { "code": 6004, "description": "Some value should be after other value" },
+    { "code": 6005, "description": "Invalid minutes step" }
+  ]
+}

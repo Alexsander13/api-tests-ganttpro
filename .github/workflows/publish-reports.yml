@@ -1,0 +1,22 @@
+name: Publish Reports
+
+on:
+  workflow_run:
+    workflows: ["API Tests"]
+    types: [completed]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: test-reports
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./

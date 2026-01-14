@@ -1,0 +1,1 @@
+"""Resources endpoints package initialization."""

@@ -1,0 +1,10 @@
+# Дополнительные зависимости для расширенных отчётов
+
+# Allure Report (опционально)
+# Установка: pip install allure-pytest
+# Использование: pytest --alluredir=reports/allure-results
+# Просмотр: allure serve reports/allure-results
+allure-pytest>=2.13.2
+
+# Pytest-json-report (опционально) - JSON отчёты
+pytest-json-report>=1.5.0

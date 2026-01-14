@@ -1,0 +1,1 @@
+"""Attachments endpoints package initialization."""

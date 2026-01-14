@@ -1,0 +1,1 @@
+"""Team endpoint tests"""

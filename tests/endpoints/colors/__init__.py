@@ -1,0 +1,1 @@
+"""Colors endpoints package initialization."""

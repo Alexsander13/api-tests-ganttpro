@@ -1,0 +1,1 @@
+"""Comments endpoints package initialization."""
