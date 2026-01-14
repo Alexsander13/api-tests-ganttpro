@@ -54,6 +54,7 @@ jobs:
           reports/allure-results/
           reports/allure-report/
         retention-days: 30
+        if-no-files-found: warn
     
     - name: Publish Test Results
       if: always() && github.actor != 'dependabot[bot]'
