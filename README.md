@@ -209,8 +209,10 @@ For GitHub Actions to run tests, you must configure secrets:
 
 | Secret Name | Value | Required |
 |-------------|-------|----------|
-| API_KEY | Your GanttPRO API key | Yes |
-| BASE_URL | API base URL | No (defaults to https://api.ganttpro.com/v1.0) |
+| `API_KEY` | Your GanttPRO API key | ✅ Yes |
+| `PROJECT_ID` | GanttPRO project ID for testing | ✅ Yes |
+| `BASE_URL` | API base URL | ⭕ No (defaults to https://api.ganttpro.com/v1.0) |
+| `RESOURCE_ID` | Resource ID for timelog tests | ⭕ No (optional, some tests will skip) |
 
 ### Optional: GitHub Pages Setup
 

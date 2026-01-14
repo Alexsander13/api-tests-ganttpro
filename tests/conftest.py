@@ -35,14 +35,12 @@ def auth_headers():
 def project_id():
     """Get project ID from environment.
     
-    Skips test if PROJECT_ID is not available.
-    
     Returns:
         Project ID as string.
     """
     value = Config.PROJECT_ID
     if not value:
-        pytest.skip("PROJECT_ID not available")
+        raise ValueError("PROJECT_ID environment variable is required but not set. Add it to GitHub Secrets.")
     return value
 
 
@@ -234,30 +232,20 @@ def attachment_id():
 def resource_id():
     """Get resource ID from environment.
     
-    Skips test if RESOURCE_ID is not available.
-    
     Returns:
-        Resource ID as string.
+        Resource ID as string or None if not available.
     """
-    value = Config.RESOURCE_ID
-    if not value:
-        pytest.skip("RESOURCE_ID not available")
-    return value
+    return Config.RESOURCE_ID
 
 
 @pytest.fixture(scope="session")
 def user_id():
     """Get user ID from environment.
     
-    Skips test if USER_ID is not available.
-    
     Returns:
-        User ID as string.
+        User ID as string or None if not available.
     """
-    value = Config.USER_ID
-    if not value:
-        pytest.skip("USER_ID not available")
-    return value
+    return Config.USER_ID
 
 
 @pytest.fixture(scope="session", autouse=True)
