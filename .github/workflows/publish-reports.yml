@@ -9,14 +9,18 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     if: always()
+    permissions:
+      contents: write
+      pages: write
     
     steps:
     - uses: actions/download-artifact@v4
       with:
         name: test-reports
+        path: ./reports
     
-    - name: Deploy to GitHub Pages
+    - name: Deploy Allure Report to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+        publish_dir: ./reports/allure-report

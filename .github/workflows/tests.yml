@@ -11,6 +11,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     
     steps:
     - uses: actions/checkout@v4
@@ -25,13 +28,21 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
+    - name: Install Allure
+      run: npm install -g allure-commandline --silent
+    
     - name: Run tests
       env:
         BASE_URL: ${{ secrets.BASE_URL || 'https://api.ganttpro.com/v1.0' }}
         API_KEY: ${{ secrets.API_KEY }}
-      run: python -m pytest
+      run: bash scripts/run_tests.sh
     
-    - name: Upload HTML Report
+    - name: Generate Allure Report
+      if: always()
+      run: |
+        allure generate reports/allure-results -o reports/allure-report --clean
+    
+    - name: Upload Test Reports
       if: always()
       uses: actions/upload-artifact@v4
       with:
@@ -39,11 +50,12 @@ jobs:
         path: |
           reports/report.html
           reports/junit.xml
+          reports/allure-results/
           reports/allure-report/
         retention-days: 30
     
     - name: Publish Test Results
-      if: always()
+      if: always() && github.actor != 'dependabot[bot]'
       uses: EnricoMi/publish-unit-test-result-action@v2
       with:
         files: reports/junit.xml
