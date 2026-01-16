@@ -1,3 +1,0 @@
-INFO     src.http_client:http_client.py:54 PUT https://api.ganttpro.com/v1.0/tasks/182909252
-INFO     src.http_client:http_client.py:66 Response status: 429
-ERROR    src.http_client:http_client.py:77 Response body: { "statusCode": 429, "message": "Rate limit is exceeded. Try again in 1 seconds." }
