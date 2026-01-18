@@ -1,0 +1,11 @@
+INFO:src.http_client:GET https://api.ganttpro.com/v1.0/languages
+INFO:src.http_client:Response status: 401
+ERROR:src.http_client:Response body: { "statusCode": 401, "message": "Access denied due to invalid subscription key. Make sure to provide a valid key for an active subscription." }
+INFO:src.http_client:DELETE https://api.ganttpro.com/v1.0/timeLogs/1133807
+INFO:src.http_client:Response status: 200
+INFO:src.http_client:DELETE https://api.ganttpro.com/v1.0/links/107242076
+INFO:src.http_client:Response status: 200
+INFO:src.http_client:DELETE https://api.ganttpro.com/v1.0/tasks/183811712
+INFO:src.http_client:Response status: 200
+INFO:src.http_client:DELETE https://api.ganttpro.com/v1.0/tasks/183811700
+INFO:src.http_client:Response status: 200
