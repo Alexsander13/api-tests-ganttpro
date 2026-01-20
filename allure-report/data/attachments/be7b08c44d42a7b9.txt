@@ -1,0 +1,7 @@
+INFO     src.http_client:http_client.py:54 POST https://api.ganttpro.com/v1.0/tasks
+INFO     src.http_client:http_client.py:66 Response status: 200
+INFO     src.http_client:http_client.py:54 PUT https://api.ganttpro.com/v1.0/tasks/184414109
+INFO     src.http_client:http_client.py:66 Response status: 401
+ERROR    src.http_client:http_client.py:77 Response body: { "statusCode": 401, "message": "Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API." }
+INFO     src.http_client:http_client.py:54 DELETE https://api.ganttpro.com/v1.0/tasks/184414109
+INFO     src.http_client:http_client.py:66 Response status: 200
