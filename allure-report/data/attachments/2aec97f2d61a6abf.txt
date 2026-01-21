@@ -1,3 +1,0 @@
-INFO     src.http_client:http_client.py:54 GET https://api.ganttpro.com/v1.0/timeLogs/999999999
-INFO     src.http_client:http_client.py:66 Response status: 400
-ERROR    src.http_client:http_client.py:77 Response body: {"code":2000,"msg":"Code 2000: Cannot find TimeLog by id: 999999999"}

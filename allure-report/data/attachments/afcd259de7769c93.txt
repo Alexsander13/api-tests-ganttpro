@@ -1,3 +1,0 @@
-INFO:src.http_client:GET https://api.ganttpro.com/v1.0/links/999999999
-INFO:src.http_client:Response status: 400
-ERROR:src.http_client:Response body: {"code":2000,"msg":"Code 2000: Cannot find Link by id: 999999999"}
