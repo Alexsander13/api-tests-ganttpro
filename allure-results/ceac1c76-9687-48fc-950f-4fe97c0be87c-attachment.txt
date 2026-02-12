@@ -1,3 +1,0 @@
-INFO:src.http_client:GET https://api.ganttpro.com/v1.0/timeLogs/1179539
-INFO:src.http_client:Response status: 401
-ERROR:src.http_client:Response body: { "statusCode": 401, "message": "Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API." }
