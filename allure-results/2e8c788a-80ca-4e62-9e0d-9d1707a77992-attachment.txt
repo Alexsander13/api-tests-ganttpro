@@ -1,9 +1,0 @@
-INFO     src.http_client:http_client.py:54 PUT https://api.ganttpro.com/v1.0/links/-1
-INFO     src.http_client:http_client.py:66 Response status: 502
-ERROR    src.http_client:http_client.py:77 Response body: <html>
-<head><title>502 Bad Gateway</title></head>
-<body>
-<center><h1>502 Bad Gateway</h1></center>
-<hr><center>cloudflare</center>
-</body>
-</html>

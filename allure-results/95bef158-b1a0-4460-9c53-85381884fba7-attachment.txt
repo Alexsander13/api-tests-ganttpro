@@ -1,3 +1,0 @@
-INFO:src.http_client:GET https://api.ganttpro.com/v1.0/comments
-INFO:src.http_client:Response status: 404
-ERROR:src.http_client:Response body: { "statusCode": 404, "message": "Resource not found" }
