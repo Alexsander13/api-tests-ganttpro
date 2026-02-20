@@ -1,3 +1,0 @@
-INFO:src.http_client:PUT https://api.ganttpro.com/v1.0/timeLogs/1192142
-INFO:src.http_client:Response status: 400
-ERROR:src.http_client:Response body: {"code":1,"text":"Something went wrong. Please contact our support service to solve this issue"}
