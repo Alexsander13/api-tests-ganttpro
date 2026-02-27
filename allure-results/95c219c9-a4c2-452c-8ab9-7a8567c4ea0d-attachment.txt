@@ -1,3 +1,0 @@
-INFO:src.http_client:DELETE https://api.ganttpro.com/v1.0/tasks/198364646
-INFO:src.http_client:Response status: 400
-ERROR:src.http_client:Response body: {"code":1,"text":"Something went wrong. Please contact our support service to solve this issue"}
