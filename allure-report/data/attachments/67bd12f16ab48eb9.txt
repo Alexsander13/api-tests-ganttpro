@@ -1,3 +1,0 @@
-INFO:src.http_client:POST https://api.ganttpro.com/v1.0/tasks/231362285/assignResource
-INFO:src.http_client:Response status: 500
-ERROR:src.http_client:Response body: {"error":"Internal Server Error","message":"Sorry, looks like we have a error happened on our servers. Please try again in a few minutes or contact our customer support service support@ganttpro.com","requestId":"03df9435d0bd0bc6741e3f5fe2fbb123"}
