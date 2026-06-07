@@ -1,3 +1,0 @@
-INFO     src.http_client:http_client.py:54 POST https://api.ganttpro.com/v1.0/tasks/243539525/assignResource
-INFO     src.http_client:http_client.py:66 Response status: 500
-ERROR    src.http_client:http_client.py:77 Response body: {"error":"Internal Server Error","message":"Sorry, looks like we have a error happened on our servers. Please try again in a few minutes or contact our customer support service support@ganttpro.com","requestId":"247b5e96c5b98d437da7b672e9a8db16"}
