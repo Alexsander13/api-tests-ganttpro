@@ -1,0 +1,11 @@
+INFO:src.http_client:GET https://api.ganttpro.com/v1.0/languages
+INFO:src.http_client:Response status: 400
+ERROR:src.http_client:Response body: {"code":1006,"msg":"Code 1006: Your api key is invalid or it's not exist"}
+INFO:src.http_client:DELETE https://api.ganttpro.com/v1.0/timeLogs/1508120
+INFO:src.http_client:Response status: 200
+INFO:src.http_client:DELETE https://api.ganttpro.com/v1.0/links/181874696
+INFO:src.http_client:Response status: 200
+INFO:src.http_client:DELETE https://api.ganttpro.com/v1.0/tasks/281033786
+INFO:src.http_client:Response status: 200
+INFO:src.http_client:DELETE https://api.ganttpro.com/v1.0/tasks/281033762
+INFO:src.http_client:Response status: 200
